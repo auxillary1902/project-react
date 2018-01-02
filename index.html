@@ -111,9 +111,16 @@
       return ({clicked : false , moves : [] , isDraw : 0})
     },
 	changeState : function(val)
-	{    
+	{ var arr=this.state.moves;var i,j,k;var count=0;
+	 for(i=0;i< arr.length;i++)
+	 {
+	 	if(arr[i].boxnumber == val)
+	 	count++;
+	 } 
+
+	 if(count==0)
+	 {
       this.props.callBackParent(! this.state.clicked);
-      var arr=this.state.moves;var i,j,k;
       if(arr.length > 0)
       {
          for(i=0;i < arr.length;i++)
@@ -179,7 +186,7 @@
       	this.props.Ending(true);
       } 
       ReactDOM.render(<Box playerselected={this.props.player} />,document.getElementById(val)); 
-      
+      }
 	},
 	render : function()
 	{
