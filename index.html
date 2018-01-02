@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tic Tac Toe</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/styel.css">
+    <link rel="stylesheet" type="text/css" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Handlee" rel="stylesheet">
+    <script src="js/react.js"></script>
+    <script src="js/react-dom.js"></script>
+    <script src="js/browser.min.js"></script>
+</head>
+<body>
+<div id="overallGame"></div>
+
+<script type="text/babel">
+    var Game = React.createClass({
+	getInitialState : function()
+	{
+		return {player1 : true}
+	},
+	onChildChanged : function(value)
+	{
+         this.setState({player1 : !this.state.player1})
+	},
+	render : function()
+	{
+	  if(this.state.player1)
+	  return (
+       <div>
+       	 <h1>Player 1's turn</h1>
+         <Board callBackParent={this.onChildChanged} player={this.state.player1} />
+       </div> 
+	  );
+	  else
+	   return (
+       <div>
+       	 <h1>Player 2's turn</h1>
+       	 <Board callBackParent={this.onChildChanged} player={this.state.player1} />
+       </div>
+	  );
+
+	}
+});
+  var Box = React.createClass({
+ 
+  render : function()
+  {
+
+    if(this.props.playerselected)
+    return (<i className="fa fa-circle-o fa-5x"></i>);
+    else if(!this.props.playerselected)
+    return (<i className="fa fa-times fa-5x"></i>);
+  }
+});
+	var Board = React.createClass({
+    getInitialState : function()
+    {
+      return ({clicked : false})
+    },
+	changeState : function(val)
+	{    
+      this.props.callBackParent(! this.state.clicked);
+      ReactDOM.render(<Box playerselected={this.props.player} />,document.getElementById(val));  
+	},
+  changeStateBox : function()
+  {
+    
+  },
+	render : function()
+	{
+		return (
+         <div className="board" >
+         	<div className="row">
+         	  <div id="1" className="box" onClick={this.changeState.bind(this,1)}></div>
+         	  <div id="2" className="box" onClick={this.changeState.bind(this,2)}></div>
+            <div id="3" className="box" onClick={this.changeState.bind(this,3)}></div> 
+         	</div>
+         	<div className="row">
+         	  <div id="4" className="box" onClick={this.changeState.bind(this,4)}></div>
+         	  <div id="5" className="box" onClick={this.changeState.bind(this,5)}></div>
+            <div id="6" className="box" onClick={this.changeState.bind(this,6)}></div> 
+         	</div>
+         	<div className="row">
+         	  <div id="7" className="box" onClick={this.changeState.bind(this,7)}></div>
+         	  <div id="8" className="box" onClick={this.changeState.bind(this,8)}></div>
+            <div id="9" className="box" onClick={this.changeState.bind(this,9)}></div> 
+         	</div>
+         </div>
+		);
+	}
+});
+	
+
+ReactDOM.render(<Game />,document.getElementById('overallGame'));
+</script>
+</body>
+</html>

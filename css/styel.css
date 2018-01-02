@@ -1,0 +1,35 @@
+#overallGame{
+	width: 100vw;
+	height: 100vh;	
+	background-color: #CBF9F9;
+}
+h1{
+	text-align: center;
+	font-weight: bold;
+	font-size: 250%;
+	font-family: "Handlee";
+	color: blue;
+	background-color: black;
+}
+
+.box{
+	width: 150px;
+	height: 150px;
+
+	border:2px solid black;
+	display: inline-block;
+    vertical-align:top;
+}
+
+.board{
+	position: relative;
+	top: 30%;
+	left: 30%;
+	
+	display: inline-block;
+}
+i{
+	position: relative;
+	top: 30px;
+	left: 27%;
+}
