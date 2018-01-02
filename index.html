@@ -38,20 +38,40 @@
 	  return (
        <div>
        	 <h1>Player 1's turn</h1>
-         <Board callBackParent={this.onChildChanged} player={this.state.player1} Ending={this.onEndChange} Draw={this.onDrawChange} />
+       	  <div className="maingame">
+       	   <div className="about">
+         	 <div className="list1">
+         	 	<i className="fa fa-circle-o"></i><h4> - Player 1</h4>
+         	 </div>
+         	 <div className="list2">
+         	 	<i className="fa fa-times"></i><h4> - Player 2</h4>
+         	 </div>
+           </div>
+           <Board callBackParent={this.onChildChanged} player={this.state.player1} Ending={this.onEndChange} Draw={this.onDrawChange} />
+          </div> 
        </div> 
 	  );
 	  else
 	   return (
        <div>
        	 <h1>Player 2's turn</h1>
-       	 <Board callBackParent={this.onChildChanged} player={this.state.player1} Ending={this.onEndChange} Draw={this.onDrawChange} />
+            <div className="maingame">
+       	   <div className="about">
+         	 <div className="list1">
+         	 	<i className="fa fa-circle-o"></i><h4> - Player 1</h4>
+         	 </div>
+         	 <div className="list2">
+         	 	<i className="fa fa-times"></i><h4> - Player 2</h4>
+         	 </div>
+           </div>
+           <Board callBackParent={this.onChildChanged} player={this.state.player1} Ending={this.onEndChange} Draw={this.onDrawChange} />
+          </div>
        </div>
 	  );
       }
       else
       {
-      	if(!this.state.draw)
+      	if(! this.state.draw)
       	{if(this.state.player1)
       	return (
           <div>

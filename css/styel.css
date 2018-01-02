@@ -1,3 +1,6 @@
+*{
+	margin: 0px;
+}
 #overallGame{
 	width: 100vw;
 	height: 100vh;	
@@ -32,4 +35,29 @@ i{
 	position: relative;
 	top: 30px;
 	left: 27%;
+}
+.about
+{  text-align: center;
+	width: 100%;
+	background-color: green;
+	padding: 20px;
+
+}
+
+.list1{
+	display: inline;
+}
+.list1 i{
+	position: relative;
+	top: 20px;
+	left: -45px;
+}
+.list2{
+	
+	display: inline;
+}
+.list2	 i{
+	position: relative;
+	top: 19px;
+	left: -45px;
 }
