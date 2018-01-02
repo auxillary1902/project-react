@@ -18,29 +18,60 @@
     var Game = React.createClass({
 	getInitialState : function()
 	{
-		return {player1 : true}
+		return {player1 : true , end : false ,draw : false}
 	},
 	onChildChanged : function(value)
 	{
          this.setState({player1 : !this.state.player1})
 	},
-	render : function()
+	onEndChange : function(val)
 	{
-	  if(this.state.player1)
+		this.setState({end : !this.state.end})
+	},
+	onDrawChange : function(val)
+	{
+		this.setState({draw : !this.state.draw})
+	},
+	render : function()
+	{if(!this.state.end)
+	  {if(this.state.player1)
 	  return (
        <div>
        	 <h1>Player 1's turn</h1>
-         <Board callBackParent={this.onChildChanged} player={this.state.player1} />
+         <Board callBackParent={this.onChildChanged} player={this.state.player1} Ending={this.onEndChange} Draw={this.onDrawChange} />
        </div> 
 	  );
 	  else
 	   return (
        <div>
        	 <h1>Player 2's turn</h1>
-       	 <Board callBackParent={this.onChildChanged} player={this.state.player1} />
+       	 <Board callBackParent={this.onChildChanged} player={this.state.player1} Ending={this.onEndChange} Draw={this.onDrawChange} />
        </div>
 	  );
-
+      }
+      else
+      {
+      	if(!this.state.draw)
+      	{if(this.state.player1)
+      	return (
+          <div>
+          	<h1>Player1 Wins!</h1>
+          </div>
+      	);
+      	else
+      	return (
+          <div>
+          	<h1>Player2 Wins!</h1>
+          </div>
+      	);
+      }
+      	else
+      	return (
+          <div>
+          	<h1>It is a Draw!</h1>
+          </div>
+       	);
+      }
 	}
 });
   var Box = React.createClass({
@@ -57,17 +88,79 @@
 	var Board = React.createClass({
     getInitialState : function()
     {
-      return ({clicked : false})
+      return ({clicked : false , moves : [] , isDraw : 0})
     },
 	changeState : function(val)
 	{    
       this.props.callBackParent(! this.state.clicked);
-      ReactDOM.render(<Box playerselected={this.props.player} />,document.getElementById(val));  
+      var arr=this.state.moves;var i,j,k;
+      if(arr.length > 0)
+      {
+         for(i=0;i < arr.length;i++)
+         {
+         	for(j=0;j< arr.length ; j++)
+         	{
+         		for(k=0; k< arr.length ;k++)
+         		{
+         			if((i!=j)&&(j!=k)&&(i!=k))
+         			{
+         				if((arr[i].playernumber==arr[j].playernumber)&&(arr[j].playernumber==arr[k].playernumber))
+         				{
+         					if(((arr[i].boxnumber==1)&&(arr[j].boxnumber==2)&&(arr[k].boxnumber==3))||((arr[i].boxnumber==1)&&(arr[j].boxnumber==3)&&(arr[k].boxnumber==2))||((arr[i].boxnumber==2)&&(arr[j].boxnumber==1)&&(arr[k].boxnumber==3))||((arr[i].boxnumber==2)&&(arr[j].boxnumber==3)&&(arr[k].boxnumber==1))||((arr[i].boxnumber==3)&&(arr[j].boxnumber==1)&&(arr[k].boxnumber==2))||((arr[i].boxnumber==3)&&(arr[j].boxnumber==2)&&(arr[k].boxnumber==1)))
+         					{
+         					  	this.props.Ending(true);	
+         					}
+         					else if(((arr[i].boxnumber==4)&&(arr[j].boxnumber==5)&&(arr[k].boxnumber==6))||((arr[i].boxnumber==4)&&(arr[j].boxnumber==6)&&(arr[k].boxnumber==5))||((arr[i].boxnumber==5)&&(arr[j].boxnumber==4)&&(arr[k].boxnumber==6))||((arr[i].boxnumber==5)&&(arr[j].boxnumber==6)&&(arr[k].boxnumber==4))||((arr[i].boxnumber==6)&&(arr[j].boxnumber==4)&&(arr[k].boxnumber==5))||((arr[i].boxnumber==6)&&(arr[j].boxnumber==5)&&(arr[k].boxnumber==4)))
+         					{
+         						this.props.Ending(true);
+         					}
+         					else if(((arr[i].boxnumber==7)&&(arr[j].boxnumber==8)&&(arr[k].boxnumber==9))||((arr[i].boxnumber==7)&&(arr[j].boxnumber==9)&&(arr[k].boxnumber==8))||((arr[i].boxnumber==8)&&(arr[j].boxnumber==7)&&(arr[k].boxnumber==9))||((arr[i].boxnumber==8)&&(arr[j].boxnumber==9)&&(arr[k].boxnumber==7))||((arr[i].boxnumber==9)&&(arr[j].boxnumber==7)&&(arr[k].boxnumber==8))||((arr[i].boxnumber==9)&&(arr[j].boxnumber==8)&&(arr[k].boxnumber==7)))
+         					{
+         						this.props.Ending(true);
+         					}
+         					else if(((arr[i].boxnumber==1)&&(arr[j].boxnumber==4)&&(arr[k].boxnumber==7))||((arr[i].boxnumber==1)&&(arr[j].boxnumber==7)&&(arr[k].boxnumber==4))||((arr[i].boxnumber==4)&&(arr[j].boxnumber==1)&&(arr[k].boxnumber==7))||((arr[i].boxnumber==4)&&(arr[j].boxnumber==7)&&(arr[k].boxnumber==1))||((arr[i].boxnumber==7)&&(arr[j].boxnumber==1)&&(arr[k].boxnumber==4))||((arr[i].boxnumber==7)&&(arr[j].boxnumber==4)&&(arr[k].boxnumber==1)))
+         					{
+         						this.props.Ending(true);
+         					}
+         					else if(((arr[i].boxnumber==2)&&(arr[j].boxnumber==8)&&(arr[k].boxnumber==5))||((arr[i].boxnumber==2)&&(arr[j].boxnumber==5)&&(arr[k].boxnumber==8))||((arr[i].boxnumber==8)&&(arr[j].boxnumber==2)&&(arr[k].boxnumber==5))||((arr[i].boxnumber==8)&&(arr[j].boxnumber==5)&&(arr[k].boxnumber==2))||((arr[i].boxnumber==5)&&(arr[j].boxnumber==2)&&(arr[k].boxnumber==8))||((arr[i].boxnumber==5)&&(arr[j].boxnumber==8)&&(arr[k].boxnumber==2)))
+         					{
+         						this.props.Ending(true);
+         					}
+         					else if(((arr[i].boxnumber==3)&&(arr[j].boxnumber==6)&&(arr[k].boxnumber==9))||((arr[i].boxnumber==3)&&(arr[j].boxnumber==9)&&(arr[k].boxnumber==6))||((arr[i].boxnumber==6)&&(arr[j].boxnumber==3)&&(arr[k].boxnumber==9))||((arr[i].boxnumber==6)&&(arr[j].boxnumber==9)&&(arr[k].boxnumber==3))||((arr[i].boxnumber==9)&&(arr[j].boxnumber==3)&&(arr[k].boxnumber==6))||((arr[i].boxnumber==9)&&(arr[j].boxnumber==6)&&(arr[k].boxnumber==3)))
+         					{
+         						this.props.Ending(true);
+         					}
+         					else if(((arr[i].boxnumber==1)&&(arr[j].boxnumber==9)&&(arr[k].boxnumber==5))||((arr[i].boxnumber==1)&&(arr[j].boxnumber==5)&&(arr[k].boxnumber==9))||((arr[i].boxnumber==9)&&(arr[j].boxnumber==1)&&(arr[k].boxnumber==5))||((arr[i].boxnumber==9)&&(arr[j].boxnumber==5)&&(arr[k].boxnumber==1))||((arr[i].boxnumber==5)&&(arr[j].boxnumber==1)&&(arr[k].boxnumber==9))||((arr[i].boxnumber==5)&&(arr[j].boxnumber==9)&&(arr[k].boxnumber==1)))
+         					{
+         						this.props.Ending(true);
+         					}
+         					else if(((arr[i].boxnumber==3)&&(arr[j].boxnumber==7)&&(arr[k].boxnumber==5))||((arr[i].boxnumber==3)&&(arr[j].boxnumber==5)&&(arr[k].boxnumber==7))||((arr[i].boxnumber==7)&&(arr[j].boxnumber==3)&&(arr[k].boxnumber==5))||((arr[i].boxnumber==7)&&(arr[j].boxnumber==5)&&(arr[k].boxnumber==3))||((arr[i].boxnumber==5)&&(arr[j].boxnumber==3)&&(arr[k].boxnumber==7))||((arr[i].boxnumber==5)&&(arr[j].boxnumber==7)&&(arr[k].boxnumber==3)))
+         					{
+         						this.props.Ending(true);
+         					}
+         				}
+         			}
+         		}
+         	}
+         }
+      }
+      if(this.props.player)
+      arr.push({playernumber : 1 , boxnumber : val});
+      else
+      arr.push({playernumber : 2 , boxnumber :	 val});
+      console.log(arr);
+      this.setState({moves : arr});
+      var isdraw = this.state.isDraw;
+      isdraw++;
+      this.setState({isDraw : isdraw});
+      if(this.state.isDraw == 9)
+      {
+      	this.props.Draw(true);
+      	this.props.Ending(true);
+      } 
+      ReactDOM.render(<Box playerselected={this.props.player} />,document.getElementById(val)); 
+      
 	},
-  changeStateBox : function()
-  {
-    
-  },
 	render : function()
 	{
 		return (
