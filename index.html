@@ -75,13 +75,13 @@
       	{if(this.state.player1)
       	return (
           <div>
-          	<h1>Player1 Wins!</h1>
+          	<h1>Player2 Wins!</h1>
           </div>
       	);
       	else
       	return (
           <div>
-          	<h1>Player2 Wins!</h1>
+          	<h1>Player1 Wins!</h1>
           </div>
       	);
       }
@@ -121,7 +121,21 @@
 	 if(count==0)
 	 {
       this.props.callBackParent(! this.state.clicked);
-      if(arr.length > 0)
+      if(this.props.player)
+      arr.push({playernumber : 1 , boxnumber : val});
+      else
+      arr.push({playernumber : 2 , boxnumber :	 val});
+      console.log(arr);
+      this.setState({moves : arr});
+      var isdraw = this.state.isDraw;
+      isdraw++;
+      this.setState({isDraw : isdraw});
+      if(this.state.isDraw == 8)
+      {
+      	this.props.Draw(true);
+      	this.props.Ending(true);
+      } 
+            if(arr.length > 0)
       {
          for(i=0;i < arr.length;i++)
          {
@@ -171,20 +185,7 @@
          	}
          }
       }
-      if(this.props.player)
-      arr.push({playernumber : 1 , boxnumber : val});
-      else
-      arr.push({playernumber : 2 , boxnumber :	 val});
-      console.log(arr);
-      this.setState({moves : arr});
-      var isdraw = this.state.isDraw;
-      isdraw++;
-      this.setState({isDraw : isdraw});
-      if(this.state.isDraw == 9)
-      {
-      	this.props.Draw(true);
-      	this.props.Ending(true);
-      } 
+
       ReactDOM.render(<Box playerselected={this.props.player} />,document.getElementById(val)); 
       }
 	},
